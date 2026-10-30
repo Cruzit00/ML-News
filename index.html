@@ -1,0 +1,33 @@
+---
+layout: default
+title: Archive
+---
+<section class="intro">
+  <p>{{ site.description }}</p>
+  <input id="search" type="search" placeholder="Search every digest (e.g. Venezuela, sanctions, NED)…" autocomplete="off" aria-label="Search digests">
+  <p id="search-status" class="muted" hidden></p>
+  <ol id="results" class="digest-list" hidden></ol>
+</section>
+
+<section id="archive">
+{% if site.posts.size == 0 %}
+  <p class="muted">No digests published yet. The first one will appear here after the next morning run.</p>
+{% endif %}
+{% assign by_month = site.posts | group_by_exp: "p", "p.date | date: '%B %Y'" %}
+{% for month in by_month %}
+  <h2 class="month">{{ month.name }}</h2>
+  <ol class="digest-list">
+  {% for post in month.items %}
+    <li>
+      <a href="{{ post.url | relative_url }}">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%a %b %-d" }}</time>
+        <span class="excerpt">{{ post.summary | default: post.excerpt | strip_html | normalize_whitespace | truncate: 140 }}</span>
+      </a>
+    </li>
+  {% endfor %}
+  </ol>
+{% endfor %}
+</section>
+
+<script>window.SEARCH_INDEX = "{{ '/search.json' | relative_url }}";</script>
+<script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
