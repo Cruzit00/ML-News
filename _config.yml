@@ -1,0 +1,36 @@
+title: "☭ ML Morning Digest"
+description: "A daily Marxist-Leninist news digest: framing, sourcing, counterarguments and materialist analysis of the day's world news."
+# If this repo is served at https://cruzit00.github.io/ML-News/ keep baseurl as below.
+# With a custom domain, set baseurl to "" and url to that domain.
+url: "https://cruzit00.github.io"
+baseurl: "/ML-News"
+timezone: America/Chicago
+lang: en
+
+permalink: /:year/:month/:day/
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: true   # Discord treats single newlines as line breaks; match that.
+  auto_ids: true
+
+plugins:
+  - jekyll-feed
+
+feed:
+  path: feed.xml
+  posts_limit: 30
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - README.md
+  - scripts/
+  - Gemfile
+  - Gemfile.lock
